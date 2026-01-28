@@ -10,7 +10,7 @@ import study.studySpring.service.MemberService;
 
 import javax.sql.DataSource;
 
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class SpringConfig {
 
     private DataSource dataSource;
