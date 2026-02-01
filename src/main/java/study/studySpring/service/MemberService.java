@@ -1,6 +1,7 @@
 package study.studySpring.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import study.studySpring.domain.Member;
 import study.studySpring.repository.MemberRepository;
 import study.studySpring.repository.MemoryMemberRepository;
@@ -8,7 +9,7 @@ import study.studySpring.repository.MemoryMemberRepository;
 import java.util.List;
 import java.util.Optional;
 
-
+@Transactional
 public class MemberService {
 
     private final MemberRepository memberRepository;
