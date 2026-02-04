@@ -20,12 +20,23 @@ public class MemberService {
 
     // 회원가입 메소드
     public long join(Member member){
-        // 동명의 회원은 X(중복)
-        validateDuplicateMember(member);
+        // AOP의 필요성을 인식하기 위한 메서드 내부 작동시간 구하기
+        long start = System.currentTimeMillis();
 
-        memberRepository.save(member);
-        // 간단한 로직으로 회원 가입 시 아이디 반환
-        return member.getId();
+        try {
+            // 동명의 회원은 X(중복)
+            validateDuplicateMember(member);
+
+            memberRepository.save(member);
+            // 간단한 로직으로 회원 가입 시 아이디 반환
+            return member.getId();
+        } finally {
+            long finish = System.currentTimeMillis();
+            long timeMs = finish - start;
+            System.out.println("join = " + timeMs + "ms");
+        }
+
+
     }
 
     private void validateDuplicateMember(Member member) {
@@ -36,7 +47,15 @@ public class MemberService {
     }
 
     public List<Member> findMembers(){
-        return memberRepository.findAll();
+        long start = System.currentTimeMillis();
+        try {
+            return memberRepository.findAll();
+        } finally {
+            long finish = System.currentTimeMillis();
+            long timeMs = finish - start;
+            System.out.println("findMembers = " + timeMs + "ms");
+        }
+
     }
 
     public Optional<Member> findOne(Long memberId){
